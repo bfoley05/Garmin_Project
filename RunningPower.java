@@ -3,9 +3,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class RunningPower {
-    public RunningPower(){
-        System.out.println("Test failed");
-    }
+
+    /**
+     * Overloaded constructor used to print out the options for the average power calculations
+     * and then asks the user whcih one they would like to calculate or for all
+     * @param data 2D array taken from csv file
+     */
     public RunningPower(List<List<String>> data){
         Scanner sc = new Scanner(System.in);
         ActivityFormating printActivityFormating;
@@ -30,6 +33,10 @@ public class RunningPower {
         }
     }
 
+    /**
+     * Method used to print out the average power of all running and cycling activites
+     * @param data 2D array taken from csv file
+     */
     public static void printAllRunningPower(List<List<String>> data){
         Scanner sc = new Scanner(System.in);
         System.out.println("What is your weight in lbs to the nearest pound: ");
@@ -45,6 +52,15 @@ public class RunningPower {
         }
     }
 
+    /**
+     * Method used to calculate the averagePower of all data sets.
+     * same as calcRunningPower however takes in weight so weight
+     * is not asked for multiple times
+     * @param index spcific index of the activites wanted to be printed
+     * @param data 2D array taken from csv file
+     * @param w weight of the user
+     * @return double that is the average power
+     */
     public static double calcRunningPowerAll(int index, List<List<String>> data, int w){
         Scanner sc = new Scanner(System.in);
         System.out.println("What is your weight in lbs to the nearest pound: ");
@@ -55,6 +71,12 @@ public class RunningPower {
         return power;
     }
 
+    /**
+     * Method used to caculate the running power of one specific activity
+     * @param index specific index of the activity wanted to be printed
+     * @param data 2D array taken from csv file
+     * @return double that is the average power
+     */
     public static double calcRunningPower(int index, List<List<String>> data){
         Scanner sc = new Scanner(System.in);
         System.out.println("What is your weight in lbs to the nearest pound: ");
@@ -64,7 +86,11 @@ public class RunningPower {
         double power = work/parseTime(data.get(index));
         return power;
     }
-
+    /**
+     * Method used to parse the time and change it into seconds
+     * @param dataLine one acvitivty from the 2D array of activities 
+     * @return int which is seconds
+     */
     public static int parseTime(List<String> dataLine){
         String temp = dataLine.get(6);
         String firstPart = temp.substring(0, 2);
