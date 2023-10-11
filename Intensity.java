@@ -4,14 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The purpose of this class is to calculate and run through code
+ * to get the intensity determined by multiple factors of the data set
+ * @author Brandon Foley
+ * @version 1.0
+ */
+
 public class Intensity {
     public static double benchmarkIntesity;
     List< List<String> > data = new ArrayList<>();
 
-    public Intensity(){
-        System.out.println("Test failed");
-    }
-
+	/**
+	 * Overloaded constructor that takes in the data in 2D array
+	 * Is used to print the data options and then the user selects
+	 * whcih activity they want to analyze
+	 * @param data 2D array taken from csv file
+	 */
     public Intensity(List<List<String>> data){
         Scanner sc = new Scanner(System.in);
         System.out.println("");
@@ -36,6 +45,13 @@ public class Intensity {
         System.out.println("---------------------------------------------------------------------------");
     }
 
+
+	/**
+	 * Method used to convert time to one double in mins
+	 * instead of in hours and mins
+	 * @param data 2D array taken from csv file
+	 * @return the time as a double
+	 */
     public static double convertTime(List<List<String>> data){
 		double time = 0.0;
 		for(int i = 1; i <data.size(); i++){
@@ -43,20 +59,29 @@ public class Intensity {
 			String temp = tempData.substring(0, tempData.indexOf("."));
 			tempData = tempData.substring(tempData.indexOf(".") + 1);
 			time += Double.parseDouble(tempData);
-			time += Integer.parseInt(temp);
+			time += Integer.parseInt(temp)*60;
 		}
 		return time;
 	}
-
+	
+	/**
+	 * Finds the intensity of one exercise at the specified index
+	 * @param data 2D array taken from csv file
+	 * @param x the index of what activity is going to be analyzed
+	 * @return a double of the intensity of that exercise
+	 */
 	public static double getOneIntensity(List<List<String>> data,int x){
 		double intensityBenchmark = 0.0;
 		intensityBenchmark += Double.parseDouble(data.get(x).get(4));
 		intensityBenchmark = intensityBenchmark * Integer.parseInt(data.get(x).get(7));
 		intensityBenchmark /= convertTime(data);
-		intensityBenchmark *= 1000;
+		intensityBenchmark *= 100;
 		return intensityBenchmark;
 	}
-
+	/**
+	 * Creates the benchmark intensity for the class
+	 * @param data 2D array taken from csv file
+	 */
 	public static void analyzeIntensity(List<List<String>> data){
 		double intensityBenchmark = 0.0;
 		for(int i = 1; i <data.size(); i++){
@@ -64,7 +89,7 @@ public class Intensity {
 			intensityBenchmark = intensityBenchmark * Integer.parseInt(data.get(i).get(7));
 			intensityBenchmark /= convertTime(data);
 		}
-		intensityBenchmark *= 1000;
+		intensityBenchmark *= 100;
 		benchmarkIntesity = intensityBenchmark;
 	}
 }
