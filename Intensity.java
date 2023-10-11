@@ -56,6 +56,7 @@ public class Intensity {
 		double time = 0.0;
 		for(int i = 1; i <data.size(); i++){
 			String tempData = data.get(i).get(6);
+			System.out.println(tempData);
 			String temp = tempData.substring(0, tempData.indexOf("."));
 			tempData = tempData.substring(tempData.indexOf(".") + 1);
 			time += Double.parseDouble(tempData);
