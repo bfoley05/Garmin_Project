@@ -22,7 +22,6 @@ public class ChangeData {
         String temp;
         for(int i = 1; i<data.size(); i++){
             for(int j = 0; j < data.get(0).size(); j++){
-                System.out.println(data.get(12).get(5));
                 temp = data.get(i).get(j).replace("\"","");
                 data.get(i).set(j, temp);
                 temp = data.get(i).get(j).replace(":",".");
