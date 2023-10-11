@@ -2,11 +2,19 @@ package Garmin;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The prupose of this class is to get all the data from one specific exercise
+ * @author Brandon Foley
+ * @version 1.0
+ */
 
 public class RequestAll {
-    public RequestAll(){
-        System.out.println("Test failed");
-    }
+
+    /**
+     * Overloaded constructor to see if the user wants to see all data for
+     * one specific activity and asks for position of that activity
+     * @param data 2D array taken from csv file
+     */
     public RequestAll(List<List<String>> data){
         Scanner sc = new Scanner(System.in);
         System.out.println("Would you like to see all the data for one of these activites(y/n)");
@@ -18,6 +26,10 @@ public class RequestAll {
         }
     }
 
+    /**
+     * Method used to print all the data of one specific activity
+     * @param dataLine The one activity taken from 2D array
+     */
     public static void printAll(List<String> dataLine){
         System.out.println("---------------------------------------------------------------------");
         System.out.println(dataLine.get(0) + ", " + dataLine.get(3) + ": ");
