@@ -2,8 +2,8 @@ package Garmin;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,6 +25,8 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
         List< List<String> > data = new ArrayList<>();
         data = readFile();
+		ChangeData changer = new ChangeData(data);
+		data = changer.getList();
 		String input = "t";
 
 		while(!input.equals("q")){
@@ -49,32 +51,39 @@ public class Main {
 	 * Method used to read the CSV file into a 2D array
 	 * @return 2D array is returned with the values from CSV file taken from garmin
 	 */
-    public static List< List<String> > readFile(){
-        List< List<String> > thing = new ArrayList<>();
-        try
-		{
-			List< List<String> > data = new ArrayList<>();//list of lists to store data
-			String file = "/Users/brandonfoley/Documents/Activities.csv";//file path
-			FileReader fr = new FileReader(file);
-			BufferedReader br = new BufferedReader(fr);
-			
-			//Reading until we run out of lines
-			String line = br.readLine();
-			while(line != null)
-			{
-				List<String> lineData = Arrays.asList(line.split(","));//splitting lines
-				data.add(lineData);
-				line = br.readLine();
-			}
-			
-			//printing the fetched data
-			br.close();
-            return data;
-		}
-		catch(Exception e)
-		{
-			System.out.print(e);
-		}
-        return thing;
+
+	public static List<List<String>> readFile() {
+        List<List<String>> data = new ArrayList<>();
+
+        try {
+            String file = "/Users/brandonfoley/Documents/CPSC_Courses/Garmin/Activities.csv";
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                List<String> lineData = parseCSVLine(line);
+                data.add(lineData);
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public static List<String> parseCSVLine(String line) {
+        List<String> values = new ArrayList<>();
+        String[] tokens = line.split(",", 4);  // Split the line into first 3 values and the rest
+        for (int i = 0; i < 3; i++) {
+            values.add(tokens[i].trim());
+        }
+        if (tokens.length == 4) {
+            String[] quotedValues = tokens[3].split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+            for (String quotedValue : quotedValues) {
+                values.add(quotedValue.trim().replaceAll("\"", ""));
+            }
+        }
+        return values;
     }
 }
