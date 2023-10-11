@@ -7,6 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The purpose of this program is to parse through and allow the user to view
+ * certian aspects of their garmin data from a garmin watch
+ * @author Brandon Foley
+ * @version 1.0
+ */
+
 public class Main {
 
 	public static double benchmarkIntesity;
@@ -38,7 +45,10 @@ public class Main {
 		
 
     }
-
+	/**
+	 * Method used to read the CSV file into a 2D array
+	 * @return 2D array is returned with the values from CSV file taken from garmin
+	 */
     public static List< List<String> > readFile(){
         List< List<String> > thing = new ArrayList<>();
         try
